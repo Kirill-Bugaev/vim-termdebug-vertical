@@ -13,3 +13,7 @@ Place Source window left
 ```vim
 let g:termdebug_leftsource = 1
 ```
+Move focus on Source window after Termdebug is opened
+```vim
+let g:termdebug_focussource = 1
+```
