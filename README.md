@@ -17,3 +17,7 @@ Move focus on Source window after Termdebug is opened
 ```vim
 let g:termdebug_focussource = 1
 ```
+Disable debugger toolbar
+```vim
+let g:termdebug_disable_toolbar = 1
+```

@@ -694,15 +694,17 @@ let s:winbar_winids = []
 
 " Install the window toolbar in the current window.
 func s:InstallWinbar()
-  if has('menu') && &mouse != ''
-    nnoremenu WinBar.Step   :Step<CR>
-    nnoremenu WinBar.Next   :Over<CR>
-    nnoremenu WinBar.Finish :Finish<CR>
-    nnoremenu WinBar.Cont   :Continue<CR>
-    nnoremenu WinBar.Stop   :Stop<CR>
-    nnoremenu WinBar.Eval   :Evaluate<CR>
-    call add(s:winbar_winids, win_getid(winnr()))
-  endif
+	if !(exists('g:termdebug_disable_toolbar') && g:termdebug_disable_toolbar)
+	  if has('menu') && &mouse != ''
+    	nnoremenu WinBar.Step   :Step<CR>
+    	nnoremenu WinBar.Next   :Over<CR>
+    	nnoremenu WinBar.Finish :Finish<CR>
+    	nnoremenu WinBar.Cont   :Continue<CR>
+    	nnoremenu WinBar.Stop   :Stop<CR>
+    	nnoremenu WinBar.Eval   :Evaluate<CR>
+    	call add(s:winbar_winids, win_getid(winnr()))
+	  endif
+	endif
 endfunc
 
 " Delete installed debugger commands in the current window.
