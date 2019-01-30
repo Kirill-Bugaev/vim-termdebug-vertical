@@ -166,18 +166,26 @@ func s:StartDebug_term(dict)
   let pty = job_info(term_getjob(s:ptybuf))['tty_out']
   let s:ptywin = win_getid(winnr())
   
-	" move Source window first
-	if exists('g:termdebug_leftsource') && g:termdebug_leftsource
-		\ && exists('g:termdebug_vertsource') && g:termdebug_vertsource
-		exe "wincmd x"
-		exe "wincmd l"
-	endif
-  
+ 
   if s:vertical
     " Assuming the source code window will get a signcolumn, use two more
     " columns for that, thus one less for the terminal window.
     exe (&columns / 2 - 1) . "wincmd |"	
   endif
+
+  	" Save Source window id in order to move focus on it
+	if exists('g:termdebug_focussource') && g:termdebug_focussource
+		exe "wincmd w"
+		let l:source_winid = win_getid(winnr())
+		exe "wincmd p"
+	endif
+
+	" move Source window left
+	if exists('g:termdebug_leftsource') && g:termdebug_leftsource
+		\ && exists('g:termdebug_vertsource') && g:termdebug_vertsource
+		exe "wincmd x"
+		exe "wincmd l"
+	endif
 
   " Create a hidden terminal window to communicate with gdb
   let s:commbuf = term_start('NONE', {
@@ -268,6 +276,11 @@ func s:StartDebug_term(dict)
 
   call job_setoptions(gdbproc, {'exit_cb': function('s:EndTermDebug')})
   call s:StartDebugCommon(a:dict)
+  
+	" Set focus on Source window
+	if exists('l:source_winid')
+		exe win_id2win(l:source_winid) . "wincmd w"
+	endif
 endfunc
 
 func s:StartDebug_prompt(dict)
@@ -291,6 +304,23 @@ func s:StartDebug_prompt(dict)
     exe (&columns / 2 - 1) . "wincmd |"
   endif
 
+  	" Save Source window id in order to move focus on it
+	if exists('g:termdebug_focussource') && g:termdebug_focussource
+		exe "wincmd w"
+		let l:source_winid = win_getid(winnr())
+		exe "wincmd p"
+	endif
+
+	" move Source window left
+	if exists('g:termdebug_leftsource') && g:termdebug_leftsource
+		\ && exists('g:termdebug_vertsource') && g:termdebug_vertsource
+		exe "wincmd x"
+		if exists('g:termdebug_focussource') && g:termdebug_focussource
+			let l:source_winid = win_getid(winnr())
+		endif
+		exe "wincmd l"
+	endif
+	
   " Add -quiet to avoid the intro message causing a hit-enter prompt.
   let gdb_args = get(a:dict, 'gdb_args', [])
   let proc_args = get(a:dict, 'proc_args', [])
@@ -361,6 +391,11 @@ func s:StartDebug_prompt(dict)
 
   call s:StartDebugCommon(a:dict)
   startinsert
+
+	" Set focus on Source window
+	if exists('l:source_winid')
+		exe win_id2win(l:source_winid) . "wincmd w"
+	endif
 endfunc
 
 func s:StartDebugCommon(dict)
