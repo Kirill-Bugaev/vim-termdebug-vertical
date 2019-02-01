@@ -21,3 +21,4 @@ Disable debug toolbar
 ```vim
 let g:termdebug_disable_toolbar = 1
 ```
+Source window id is reflected in `g:termdebug_sourcewin` variable.
