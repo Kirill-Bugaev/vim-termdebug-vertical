@@ -114,7 +114,7 @@ func s:StartDebug_internal(dict)
   " call ch_logfile('debuglog', 'w')
 
   let s:sourcewin = win_getid(winnr())
-  let g:termdebug_easymaps_sourcewin = s:sourcewin
+  let g:termdebug_sourcewin = s:sourcewin
   let s:startsigncolumn = &signcolumn
 
   let s:save_columns = 0
@@ -909,7 +909,7 @@ func s:GotoSourcewinOrCreateIt()
   if !win_gotoid(s:sourcewin)
     new
     let s:sourcewin = win_getid(winnr())
-	let g:termdebug_easymaps_sourcewin = s:sourcewin
+	let g:termdebug_sourcewin = s:sourcewin
     call s:InstallWinbar()
   endif
 endfunc
@@ -941,7 +941,7 @@ func s:HandleCursor(msg)
           " TODO: find existing window
           exe 'split ' . fnameescape(fname)
           let s:sourcewin = win_getid(winnr())
-		  let g:termdebug_easymaps_sourcewin = s:sourcewin
+		  let g:termdebug_sourcewin = s:sourcewin
           call s:InstallWinbar()
         else
           exe 'edit ' . fnameescape(fname)
