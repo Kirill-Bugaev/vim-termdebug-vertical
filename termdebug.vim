@@ -693,6 +693,10 @@ endfunc
 
 let s:winbar_winids = []
 
+function g:Termdebug_InstallWibar()
+	call InstallWinbar()
+endfunction
+
 " Install the window toolbar in the current window.
 func s:InstallWinbar()
 	if !(exists('g:termdebug_disable_toolbar') && g:termdebug_disable_toolbar)
