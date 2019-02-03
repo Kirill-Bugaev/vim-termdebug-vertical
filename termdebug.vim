@@ -693,11 +693,11 @@ endfunc
 
 let s:winbar_winids = []
 
-function g:Termdebug_InstallWibar()
-	call InstallWinbar()
+function g:Termdebug_InstallWinbar()
+	call s:InstallWinbar()
 endfunction
 
-function g:Termdebug_RemoveWibar()
+function g:Termdebug_RemoveWinbar()
 	aunmenu WinBar.Step
 	aunmenu WinBar.Next
 	aunmenu WinBar.Finish
