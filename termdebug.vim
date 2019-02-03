@@ -706,6 +706,10 @@ function g:Termdebug_RemoveWibar()
 	aunmenu WinBar.Eval
 endfunction
 
+function g:Termdebug_SetSourcewinid(sourcewin)
+	let s:sourcewin = a:sourcewin
+endfunction
+
 " Install the window toolbar in the current window.
 func s:InstallWinbar()
 	if !(exists('g:termdebug_disable_toolbar') && g:termdebug_disable_toolbar)
