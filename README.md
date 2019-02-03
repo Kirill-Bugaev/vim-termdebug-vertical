@@ -22,4 +22,5 @@ Disable debug toolbar
 let g:termdebug_disable_toolbar = 1
 ```
 Source window id is reflected in `g:termdebug_sourcewin` variable.
-`Termdebug_InstallWibar()` is global wrapper for Termdebug `s:InstallWibar()` function.
+
+`g:Termdebug_InstallWibar()` is wrapper for `s:InstallWibar()` function.
