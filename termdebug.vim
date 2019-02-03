@@ -697,6 +697,15 @@ function g:Termdebug_InstallWibar()
 	call InstallWinbar()
 endfunction
 
+function g:Termdebug_RemoveWibar()
+	aunmenu WinBar.Step
+	aunmenu WinBar.Next
+	aunmenu WinBar.Finish
+	aunmenu WinBar.Cont
+	aunmenu WinBar.Stop
+	aunmenu WinBar.Eval
+endfunction
+
 " Install the window toolbar in the current window.
 func s:InstallWinbar()
 	if !(exists('g:termdebug_disable_toolbar') && g:termdebug_disable_toolbar)
